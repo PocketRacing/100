@@ -1,0 +1,3106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>100 РЕНТГЕН — ЗОНА</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  background:#080b09;
+  color:#d7ded5;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button{
+  font:inherit;
+}
+
+:root{
+  --bg:#080b09;
+  --panel:#101512;
+  --panel2:#151c17;
+  --line:#2b372e;
+  --text:#d7ded5;
+  --muted:#89958b;
+  --green:#a7c96d;
+  --green2:#6f9145;
+  --yellow:#d0ae55;
+  --red:#c45c52;
+  --blue:#6595a9;
+}
+
+#game{
+  max-width:1250px;
+  margin:auto;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(111,145,69,.12),transparent 35%),
+    #080b09;
+}
+
+/* TOP */
+
+.top{
+  height:64px;
+  border-bottom:1px solid var(--line);
+  background:#0c100d;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.logo{
+  font-weight:900;
+  letter-spacing:2px;
+  color:#b6d57b;
+  font-size:17px;
+}
+
+.logo small{
+  display:block;
+  color:#6e7b71;
+  font-size:8px;
+  letter-spacing:3px;
+  margin-top:2px;
+}
+
+.top-right{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.money{
+  color:#d5b45d;
+  font-weight:bold;
+}
+
+.iconbtn{
+  width:38px;
+  height:38px;
+  border:1px solid var(--line);
+  background:#121812;
+  color:#b8c3b9;
+  border-radius:5px;
+}
+
+/* LAYOUT */
+
+.layout{
+  display:grid;
+  grid-template-columns:235px 1fr;
+  min-height:calc(100vh - 64px);
+}
+
+.sidebar{
+  border-right:1px solid var(--line);
+  background:#0c110e;
+  padding:12px;
+}
+
+.player-mini{
+  padding:13px;
+  border:1px solid var(--line);
+  background:#101611;
+  margin-bottom:12px;
+}
+
+.player-name{
+  font-weight:bold;
+  color:#dbe4d8;
+}
+
+.level{
+  color:#8fa968;
+  font-size:12px;
+  margin-top:4px;
+}
+
+.statbar{
+  height:7px;
+  background:#202721;
+  margin-top:8px;
+  overflow:hidden;
+  border-radius:2px;
+}
+
+.statbar i{
+  display:block;
+  height:100%;
+}
+
+.hp i{background:#a34e48}
+.stam i{background:#6d9650}
+.rad i{background:#bd9d48}
+.hunger i{background:#876e4a}
+
+.nav{
+  display:grid;
+  gap:5px;
+}
+
+.nav button{
+  text-align:left;
+  padding:11px;
+  color:#aeb9ae;
+  background:#101510;
+  border:1px solid transparent;
+  border-radius:4px;
+}
+
+.nav button:hover,
+.nav button.active{
+  background:#182019;
+  border-color:#354532;
+  color:#c2d88d;
+}
+
+.main{
+  min-width:0;
+}
+
+.content{
+  padding:14px;
+  max-width:1000px;
+  margin:auto;
+}
+
+/* PAGES */
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.title{
+  font-size:23px;
+  font-weight:900;
+  letter-spacing:1px;
+  margin:4px 0 3px;
+}
+
+.subtitle{
+  color:#748076;
+  font-size:12px;
+  margin-bottom:15px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.card{
+  background:#101611;
+  border:1px solid var(--line);
+  padding:14px;
+  border-radius:5px;
+}
+
+.card-title{
+  font-weight:bold;
+  color:#c6d1c6;
+  margin-bottom:7px;
+}
+
+.muted{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.green{
+  color:var(--green);
+}
+
+.yellow{
+  color:var(--yellow);
+}
+
+.red{
+  color:#d2675e;
+}
+
+.big{
+  font-size:26px;
+  font-weight:900;
+}
+
+.btn{
+  border:1px solid #394735;
+  background:#182018;
+  color:#c3d394;
+  padding:10px 13px;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+.btn:hover{
+  background:#202b20;
+}
+
+.btn:active{
+  transform:translateY(1px);
+}
+
+.btn.red{
+  border-color:#653c38;
+  background:#251513;
+  color:#d87970;
+}
+
+.btn.blue{
+  border-color:#38525e;
+  background:#121d21;
+  color:#83aebe;
+}
+
+.btn.gold{
+  border-color:#655532;
+  background:#211c12;
+  color:#d5b45d;
+}
+
+.btn.full{
+  width:100%;
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.space{
+  justify-content:space-between;
+}
+
+.mt{
+  margin-top:10px;
+}
+
+/* HOME */
+
+.warning{
+  border:1px solid #594d2d;
+  background:#19170f;
+  padding:12px;
+  color:#c8b56e;
+  margin-bottom:12px;
+}
+
+.dashboard{
+  display:grid;
+  grid-template-columns:1.3fr .7fr;
+  gap:10px;
+}
+
+.location-box{
+  min-height:250px;
+  background:
+    linear-gradient(rgba(16,24,18,.75),rgba(8,11,9,.9)),
+    repeating-linear-gradient(0deg,transparent 0 29px,rgba(110,145,69,.04) 30px),
+    repeating-linear-gradient(90deg,transparent 0 29px,rgba(110,145,69,.04) 30px);
+  border:1px solid var(--line);
+  position:relative;
+  padding:18px;
+  overflow:hidden;
+}
+
+.location-box:after{
+  content:"";
+  position:absolute;
+  width:250px;
+  height:250px;
+  right:-80px;
+  bottom:-100px;
+  border:1px solid rgba(167,201,109,.1);
+  border-radius:50%;
+}
+
+.coords{
+  position:absolute;
+  right:12px;
+  top:10px;
+  color:#526054;
+  font-size:10px;
+}
+
+.location-name{
+  font-size:30px;
+  font-weight:900;
+  color:#b7ca8b;
+  margin-top:45px;
+}
+
+.location-desc{
+  max-width:520px;
+  color:#8e9a90;
+  line-height:1.5;
+  margin-top:7px;
+}
+
+.location-actions{
+  margin-top:20px;
+}
+
+/* MAP */
+
+.map{
+  position:relative;
+  min-height:580px;
+  border:1px solid var(--line);
+  background:
+    linear-gradient(rgba(22,31,24,.5),rgba(7,10,8,.82)),
+    repeating-linear-gradient(0deg,transparent 0 49px,#253127 50px),
+    repeating-linear-gradient(90deg,transparent 0 49px,#253127 50px);
+  overflow:hidden;
+}
+
+.map:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 25%,rgba(89,115,67,.2),transparent 18%),
+    radial-gradient(circle at 75% 70%,rgba(99,72,48,.16),transparent 20%),
+    radial-gradient(circle at 50% 50%,rgba(90,90,50,.1),transparent 25%);
+  pointer-events:none;
+}
+
+.route{
+  position:absolute;
+  height:3px;
+  background:#566e42;
+  transform-origin:left;
+  opacity:.8;
+}
+
+.node{
+  position:absolute;
+  width:110px;
+  padding:8px 5px;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  cursor:pointer;
+  z-index:3;
+}
+
+.node-dot{
+  width:19px;
+  height:19px;
+  margin:auto;
+  border:2px solid #72865a;
+  background:#111711;
+  border-radius:50%;
+  box-shadow:0 0 0 5px rgba(114,134,90,.07);
+}
+
+.node-name{
+  font-size:11px;
+  color:#b7c1b4;
+  margin-top:5px;
+}
+
+.node.current .node-dot{
+  background:#a7c96d;
+  border-color:#d4e7a5;
+  box-shadow:0 0 0 7px rgba(167,201,109,.1),0 0 15px rgba(167,201,109,.35);
+}
+
+.node.current .node-name{
+  color:#d1e09c;
+  font-weight:bold;
+}
+
+.node.locked{
+  opacity:.38;
+}
+
+/* INVENTORY */
+
+.inventory{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+}
+
+.item{
+  min-height:105px;
+  border:1px solid var(--line);
+  background:#101510;
+  padding:9px;
+  position:relative;
+  cursor:pointer;
+}
+
+.item:hover{
+  border-color:#536648;
+}
+
+.item-icon{
+  font-size:27px;
+}
+
+.item-name{
+  font-size:11px;
+  margin-top:4px;
+  color:#c4cec3;
+}
+
+.item-count{
+  position:absolute;
+  right:7px;
+  top:7px;
+  background:#202a20;
+  padding:2px 5px;
+  font-size:10px;
+  color:#b6ca8b;
+}
+
+.item-weight{
+  color:#68746b;
+  font-size:9px;
+  margin-top:4px;
+}
+
+/* QUESTS */
+
+.quest{
+  border:1px solid var(--line);
+  background:#101611;
+  padding:13px;
+  margin-bottom:8px;
+}
+
+.quest.done{
+  opacity:.55;
+}
+
+.quest h3{
+  margin:0 0 6px;
+  font-size:15px;
+  color:#c4d19b;
+}
+
+.reward{
+  margin-top:9px;
+  color:#b59b59;
+  font-size:11px;
+}
+
+/* COMBAT */
+
+.combat-arena{
+  background:
+    radial-gradient(circle at 50% 40%,rgba(117,70,50,.12),transparent 35%),
+    #0b0e0c;
+  border:1px solid var(--line);
+  padding:15px;
+}
+
+.enemy{
+  text-align:center;
+  padding:15px;
+  border-bottom:1px solid var(--line);
+}
+
+.enemy-icon{
+  font-size:64px;
+}
+
+.enemy-name{
+  font-size:20px;
+  font-weight:bold;
+  color:#cf756a;
+}
+
+.combat-log{
+  height:190px;
+  overflow-y:auto;
+  padding:10px;
+  background:#080b09;
+  border:1px solid #1e2720;
+  margin:10px 0;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.log-line{
+  border-bottom:1px solid #121914;
+  padding:3px 0;
+}
+
+.combat-actions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+}
+
+/* NPC */
+
+.npc{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.npc-icon{
+  width:55px;
+  height:55px;
+  display:grid;
+  place-items:center;
+  font-size:30px;
+  border:1px solid var(--line);
+  background:#161c17;
+}
+
+/* TOAST */
+
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  transform:translateX(-50%) translateY(20px);
+  background:#161d17;
+  border:1px solid #46583e;
+  color:#d3dfb0;
+  padding:11px 17px;
+  border-radius:4px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:100;
+  max-width:90%;
+  text-align:center;
+}
+
+#toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* MODAL */
+
+.modal-bg{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  z-index:80;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+
+.modal-bg.show{
+  display:flex;
+}
+
+.modal{
+  width:min(500px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#101611;
+  border:1px solid #394638;
+  padding:16px;
+}
+
+.modal h2{
+  margin:0 0 12px;
+  color:#c7d695;
+}
+
+/* MOBILE */
+
+.mobile-nav{
+  display:none;
+}
+
+@media(max-width:800px){
+
+  .layout{
+    display:block;
+    min-height:auto;
+  }
+
+  .sidebar{
+    display:none;
+  }
+
+  .content{
+    padding:10px;
+    padding-bottom:78px;
+  }
+
+  .dashboard,
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .grid3{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .inventory{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .map{
+    min-height:520px;
+  }
+
+  .mobile-nav{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:60;
+    background:#0d120e;
+    border-top:1px solid var(--line);
+  }
+
+  .mobile-nav button{
+    background:none;
+    border:0;
+    color:#829084;
+    padding:9px 3px 8px;
+    font-size:10px;
+  }
+
+  .mobile-nav button span{
+    display:block;
+    font-size:18px;
+    margin-bottom:2px;
+  }
+
+  .mobile-nav button.active{
+    color:#bad17e;
+  }
+
+  .location-name{
+    font-size:25px;
+  }
+}
+
+@media(max-width:430px){
+
+  .top{
+    padding:0 9px;
+  }
+
+  .logo{
+    font-size:14px;
+  }
+
+  .inventory{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .combat-actions{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .node{
+    width:90px;
+  }
+
+  .node-name{
+    font-size:9px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+<header class="top">
+  <div class="logo">
+    ☢ 100 РЕНТГЕН
+    <small>ЗОНА • BROWSER SURVIVAL</small>
+  </div>
+
+  <div class="top-right">
+    <div class="money">₽ <span id="moneyTop">850</span></div>
+    <button class="iconbtn" onclick="openSettings()">⚙</button>
+  </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+  <div class="player-mini">
+    <div class="player-name" id="sideName">Картавый</div>
+    <div class="level">СТАЛКЕР • УР. <span id="sideLevel">1</span></div>
+
+    <div class="muted mt">Здоровье</div>
+    <div class="statbar hp"><i id="sideHp" style="width:100%"></i></div>
+
+    <div class="muted mt">Выносливость</div>
+    <div class="statbar stam"><i id="sideStam" style="width:100%"></i></div>
+
+    <div class="muted mt">Радиация</div>
+    <div class="statbar rad"><i id="sideRad" style="width:5%"></i></div>
+  </div>
+
+  <nav class="nav">
+    <button class="active" onclick="showPage('home',this)">☢ Главная</button>
+    <button onclick="showPage('map',this)">🗺 Карта Зоны</button>
+    <button onclick="showPage('inventory',this)">🎒 Рюкзак</button>
+    <button onclick="showPage('character',this)">🧍 Персонаж</button>
+    <button onclick="showPage('quests',this)">📜 Задания</button>
+    <button onclick="showPage('traders',this)">💰 Торговля</button>
+    <button onclick="showPage('combat',this)">⚔ Бой</button>
+    <button onclick="showPage('journal',this)">📓 Журнал</button>
+  </nav>
+
+</aside>
+
+<main class="main">
+<div class="content">
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+  <div class="title">Сводка</div>
+  <div class="subtitle">Последние данные о твоём положении в Зоне</div>
+
+  <div class="warning">
+    ☢ <b>ВНИМАНИЕ:</b> радиационный фон повышается. Не задерживайся на открытой местности.
+  </div>
+
+  <div class="dashboard">
+
+    <div class="location-box">
+
+      <div class="coords">X: 014 • Y: 083 • Z: +12</div>
+
+      <div class="muted">ТЕКУЩЕЕ МЕСТОПОЛОЖЕНИЕ</div>
+
+      <div class="location-name" id="homeLocation">Кордон</div>
+
+      <div class="location-desc" id="homeDesc">
+        Пыльная дорога у старого блокпоста. Здесь ещё можно встретить новичков,
+        торговцев и военных. Дальше начинается настоящая Зона.
+      </div>
+
+      <div class="location-actions row">
+        <button class="btn" onclick="searchLocation()">🔍 Исследовать</button>
+        <button class="btn red" onclick="startRandomCombat()">⚔ Опасность</button>
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="card">
+        <div class="card-title">Состояние</div>
+
+        <div class="row space">
+          <span>❤️ Здоровье</span>
+          <b id="homeHp">100/100</b>
+        </div>
+        <div class="statbar hp"><i id="homeHpBar" style="width:100%"></i></div>
+
+        <div class="row space mt">
+          <span>🍖 Голод</span>
+          <b id="homeHunger">100%</b>
+        </div>
+        <div class="statbar hunger"><i id="homeHungerBar" style="width:100%"></i></div>
+
+        <div class="row space mt">
+          <span>☢ Радиация</span>
+          <b id="homeRad">5%</b>
+        </div>
+        <div class="statbar rad"><i id="homeRadBar" style="width:5%"></i></div>
+      </div>
+
+      <div class="card mt">
+        <div class="card-title">Быстрые действия</div>
+        <div class="grid3">
+          <button class="btn" onclick="useItem('medkit')">💊 Лечение</button>
+          <button class="btn" onclick="useItem('food')">🥫 Еда</button>
+          <button class="btn" onclick="useItem('antirad')">💉 Антирад</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="grid mt">
+
+    <div class="card">
+      <div class="card-title">Последние события</div>
+      <div id="homeEvents" class="muted">
+        Ты вошёл в Зону.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Рюкзак</div>
+      <div class="row space">
+        <span class="muted">Предметов</span>
+        <b id="bagCount">0</b>
+      </div>
+      <div class="row space mt">
+        <span class="muted">Вес</span>
+        <b><span id="bagWeight">0</span> / 30 кг</b>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- MAP -->
+
+<section id="map" class="page">
+
+  <div class="title">Карта Зоны</div>
+  <div class="subtitle">Перемещайся между известными районами</div>
+
+  <div class="map" id="zoneMap">
+
+    <div class="route" style="left:16%;top:73%;width:23%;transform:rotate(-25deg)"></div>
+    <div class="route" style="left:37%;top:63%;width:22%;transform:rotate(-22deg)"></div>
+    <div class="route" style="left:55%;top:54%;width:20%;transform:rotate(-40deg)"></div>
+    <div class="route" style="left:73%;top:39%;width:18%;transform:rotate(-12deg)"></div>
+    <div class="route" style="left:42%;top:64%;width:19%;transform:rotate(65deg)"></div>
+    <div class="route" style="left:56%;top:77%;width:21%;transform:rotate(-8deg)"></div>
+
+    <div class="node current" id="node-cordon" style="left:15%;top:74%" onclick="travel('cordon')">
+      <div class="node-dot"></div>
+      <div class="node-name">Кордон</div>
+    </div>
+
+    <div class="node" id="node-garbage" style="left:37%;top:63%" onclick="travel('garbage')">
+      <div class="node-dot"></div>
+      <div class="node-name">Свалка</div>
+    </div>
+
+    <div class="node" id="node-dark" style="left:57%;top:52%" onclick="travel('dark')">
+      <div class="node-dot"></div>
+      <div class="node-name">Тёмная долина</div>
+    </div>
+
+    <div class="node locked" id="node-agro" style="left:76%;top:39%" onclick="travel('agro')">
+      <div class="node-dot"></div>
+      <div class="node-name">Агропром</div>
+    </div>
+
+    <div class="node" id="node-swamp" style="left:45%;top:84%" onclick="travel('swamp')">
+      <div class="node-dot"></div>
+      <div class="node-name">Болота</div>
+    </div>
+
+    <div class="node locked" id="node-yantar" style="left:79%;top:70%" onclick="travel('yantar')">
+      <div class="node-dot"></div>
+      <div class="node-name">Янтарь</div>
+    </div>
+
+    <div class="node locked" id="node-red" style="left:60%;top:23%" onclick="travel('red')">
+      <div class="node-dot"></div>
+      <div class="node-name">Рыжий лес</div>
+    </div>
+
+    <div class="node locked" id="node-pripyat" style="left:87%;top:17%" onclick="travel('pripyat')">
+      <div class="node-dot"></div>
+      <div class="node-name">Припять</div>
+    </div>
+
+  </div>
+
+  <div class="grid mt">
+    <div class="card">
+      <div class="card-title">Текущая локация</div>
+      <b id="mapCurrent">Кордон</b>
+      <p class="muted" id="mapDanger">Опасность: низкая</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Переход</div>
+      <p class="muted">Переход тратит выносливость и может привести к случайной встрече.</p>
+      <button class="btn full" onclick="travelNearest()">🚶 Идти дальше</button>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- INVENTORY -->
+
+<section id="inventory" class="page">
+
+  <div class="title">Рюкзак</div>
+  <div class="subtitle">
+    Экипировка и найденные предметы
+  </div>
+
+  <div class="card mb">
+    <div class="row space">
+      <span>Вес рюкзака</span>
+      <b><span id="invWeight">0</span> / 30 кг</b>
+    </div>
+    <div class="statbar mt">
+      <i id="weightBar" style="width:0%;background:#7c9254"></i>
+    </div>
+  </div>
+
+  <div class="inventory mt" id="inventoryGrid"></div>
+
+</section>
+
+
+<!-- CHARACTER -->
+
+<section id="character" class="page">
+
+  <div class="title">Персонаж</div>
+  <div class="subtitle">Информация о сталкере</div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="npc">
+        <div class="npc-icon">🧍</div>
+        <div>
+          <div class="big" id="charName">Картавый</div>
+          <div class="muted">Одиночка</div>
+          <div class="green">Уровень <span id="charLevel">1</span></div>
+        </div>
+      </div>
+
+      <div class="mt">Опыт</div>
+      <div class="statbar">
+        <i id="xpBar" style="width:0%;background:#789a54"></i>
+      </div>
+      <div class="muted mt">
+        <span id="xpText">0 / 100 XP</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Характеристики</div>
+
+      <div class="row space mt"><span>❤️ Здоровье</span><b>100</b></div>
+      <div class="row space mt"><span>⚔ Сила</span><b id="statStrength">5</b></div>
+      <div class="row space mt"><span>🎯 Меткость</span><b id="statAccuracy">5</b></div>
+      <div class="row space mt"><span>🏃 Выносливость</span><b id="statStamina">5</b></div>
+      <div class="row space mt"><span>☢ Устойчивость</span><b id="statRad">2</b></div>
+    </div>
+
+  </div>
+
+  <div class="grid3 mt">
+
+    <div class="card">
+      <div class="big">⚔</div>
+      <div class="card-title">Ближний бой</div>
+      <div class="muted">Урон: 7</div>
+    </div>
+
+    <div class="card">
+      <div class="big">🔫</div>
+      <div class="card-title">Огнестрельное</div>
+      <div class="muted">Урон: 18</div>
+    </div>
+
+    <div class="card">
+      <div class="big">🛡</div>
+      <div class="card-title">Защита</div>
+      <div class="muted">Броня: 3</div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- QUESTS -->
+
+<section id="quests" class="page">
+
+  <div class="title">Задания</div>
+  <div class="subtitle">Работа для тех, кто готов рисковать</div>
+
+  <div id="questList"></div>
+
+</section>
+
+
+<!-- TRADERS -->
+
+<section id="traders" class="page">
+
+  <div class="title">Торговля</div>
+  <div class="subtitle">Скупщик на Кордоне</div>
+
+  <div class="card">
+    <div class="npc">
+      <div class="npc-icon">🧔</div>
+      <div>
+        <b>Сидорович</b>
+        <div class="muted">«Есть что-нибудь интересное?»</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid mt" id="shopGrid"></div>
+
+</section>
+
+
+<!-- COMBAT -->
+
+<section id="combat" class="page">
+
+  <div class="title">Бой</div>
+  <div class="subtitle">Сражение происходит пошагово</div>
+
+  <div class="combat-arena">
+
+    <div class="enemy">
+      <div class="enemy-icon" id="enemyIcon">🐺</div>
+      <div class="enemy-name" id="enemyName">Псевдособака</div>
+
+      <div class="statbar hp mt">
+        <i id="enemyHpBar" style="width:100%"></i>
+      </div>
+
+      <div class="muted mt">
+        ❤️ <span id="enemyHp">50</span>/<span id="enemyMaxHp">50</span>
+      </div>
+    </div>
+
+    <div class="combat-log" id="combatLog">
+      <div class="log-line">Ты готов к бою.</div>
+    </div>
+
+    <div class="combat-actions">
+
+      <button class="btn red" onclick="attack('gun')">
+        🔫 Выстрел
+      </button>
+
+      <button class="btn" onclick="attack('knife')">
+        🔪 Нож
+      </button>
+
+      <button class="btn blue" onclick="defend()">
+        🛡 Защита
+      </button>
+
+      <button class="btn" onclick="useItem('medkit')">
+        💊 Аптечка
+      </button>
+
+      <button class="btn gold" onclick="flee()">
+        🏃 Бежать
+      </button>
+
+      <button class="btn" onclick="startRandomCombat()">
+        🎲 Новый бой
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- JOURNAL -->
+
+<section id="journal" class="page">
+
+  <div class="title">Журнал</div>
+  <div class="subtitle">История твоих действий</div>
+
+  <div class="card" id="journalList">
+  </div>
+
+</section>
+
+</div>
+</main>
+</div>
+
+
+<div class="mobile-nav">
+
+  <button class="active" onclick="showPage('home',this)">
+    <span>☢</span>Главная
+  </button>
+
+  <button onclick="showPage('map',this)">
+    <span>🗺</span>Карта
+  </button>
+
+  <button onclick="showPage('inventory',this)">
+    <span>🎒</span>Рюкзак
+  </button>
+
+  <button onclick="showPage('quests',this)">
+    <span>📜</span>Квесты
+  </button>
+
+  <button onclick="showPage('character',this)">
+    <span>🧍</span>Я
+  </button>
+
+</div>
+
+<div id="toast"></div>
+
+<div class="modal-bg" id="modal">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+
+<script>
+
+/* =========================================================
+   GAME DATA
+========================================================= */
+
+const locations = {
+
+  cordon:{
+    name:"Кордон",
+    desc:"Пыльная дорога у старого блокпоста. Здесь ещё можно встретить новичков, торговцев и военных. Дальше начинается настоящая Зона.",
+    danger:1,
+    radiation:2,
+    color:"low"
+  },
+
+  garbage:{
+    name:"Свалка",
+    desc:"Горы металлолома, старые машины и многочисленные тайники. Здесь часто промышляют мародёры.",
+    danger:2,
+    radiation:10
+  },
+
+  dark:{
+    name:"Тёмная долина",
+    desc:"Старые промышленные здания, заброшенные цеха и опасные мутанты.",
+    danger:3,
+    radiation:15
+  },
+
+  agro:{
+    name:"Агропром",
+    desc:"Заброшенные корпуса института и подземные коммуникации. Здесь давно никто не чувствует себя в безопасности.",
+    danger:4,
+    radiation:20,
+    locked:true
+  },
+
+  swamp:{
+    name:"Болота",
+    desc:"Сырая территория с редкими тропами. Видимость плохая, а земля скрывает множество опасностей.",
+    danger:2,
+    radiation:8
+  },
+
+  yantar:{
+    name:"Янтарь",
+    desc:"Радиоактивная территория вокруг старого научного комплекса.",
+    danger:4,
+    radiation:35,
+    locked:true
+  },
+
+  red:{
+    name:"Рыжий лес",
+    desc:"Мёртвый лес, в котором приборы сходят с ума. Опаснейшая территория.",
+    danger:5,
+    radiation:45,
+    locked:true
+  },
+
+  pripyat:{
+    name:"Припять",
+    desc:"Мёртвый город. Огромные здания стоят пустыми, но Зона внутри них живёт своей жизнью.",
+    danger:5,
+    radiation:50,
+    locked:true
+  }
+
+};
+
+
+const items = {
+
+  medkit:{
+    id:"medkit",
+    name:"Аптечка",
+    icon:"💊",
+    weight:0.5,
+    price:120,
+    type:"medical",
+    desc:"Восстанавливает 35 здоровья."
+  },
+
+  food:{
+    id:"food",
+    name:"Консервы",
+    icon:"🥫",
+    weight:0.4,
+    price:60,
+    type:"food",
+    desc:"Восстанавливает 30% сытости."
+  },
+
+  antirad:{
+    id:"antirad",
+    name:"Антирад",
+    icon:"💉",
+    weight:0.2,
+    price:150,
+    type:"rad",
+    desc:"Снижает радиацию на 25%."
+  },
+
+  vodka:{
+    id:"vodka",
+    name:"Водка",
+    icon:"🍾",
+    weight:0.5,
+    price:100,
+    type:"vodka",
+    desc:"Снижает стресс, но ухудшает меткость."
+  },
+
+  artifact1:{
+    id:"artifact1",
+    name:"Медуза",
+    icon:"🔮",
+    weight:0.8,
+    price:700,
+    type:"artifact",
+    desc:"Необычный артефакт. Торговец даст за него хорошие деньги."
+  },
+
+  artifact2:{
+    id:"artifact2",
+    name:"Кровь камня",
+    icon:"🪨",
+    weight:1.1,
+    price:1100,
+    type:"artifact",
+    desc:"Редкий артефакт с неизвестными свойствами."
+  },
+
+  ammo:{
+    id:"ammo",
+    name:"Патроны 9×18",
+    icon:"🔸",
+    weight:0.1,
+    price:35,
+    type:"ammo",
+    desc:"Боеприпасы для пистолета."
+  },
+
+  scrap:{
+    id:"scrap",
+    name:"Металлолом",
+    icon:"⚙️",
+    weight:1.5,
+    price:80,
+    type:"junk",
+    desc:"Можно продать или использовать для крафта."
+  },
+
+  detector:{
+    id:"detector",
+    name:"Детектор ЭХО",
+    icon:"📟",
+    weight:1.2,
+    price:900,
+    type:"tool",
+    desc:"Помогает обнаруживать артефакты."
+  },
+
+  bread:{
+    id:"bread",
+    name:"Хлеб",
+    icon:"🍞",
+    weight:0.3,
+    price:30,
+    type:"food",
+    desc:"Простая еда."
+  }
+
+};
+
+
+const enemies = [
+
+  {
+    id:"dog",
+    name:"Псевдособака",
+    icon:"🐺",
+    hp:50,
+    damage:8,
+    xp:25,
+    money:40
+  },
+
+  {
+    id:"boar",
+    name:"Кабан",
+    icon:"🐗",
+    hp:75,
+    damage:12,
+    xp:35,
+    money:55
+  },
+
+  {
+    id:"flesh",
+    name:"Плоть",
+    icon:"🐖",
+    hp:90,
+    damage:15,
+    xp:45,
+    money:70
+  },
+
+  {
+    id:"snork",
+    name:"Снорк",
+    icon:"👹",
+    hp:120,
+    damage:20,
+    xp:70,
+    money:120
+  },
+
+  {
+    id:"bloodsucker",
+    name:"Кровосос",
+    icon:"👤",
+    hp:180,
+    damage:28,
+    xp:130,
+    money:220
+  }
+
+];
+
+
+const quests = [
+
+  {
+    id:"first",
+    name:"Первый выход",
+    desc:"Исследуй Кордон и найди хотя бы один полезный предмет.",
+    rewardMoney:150,
+    rewardXp:50
+  },
+
+  {
+    id:"mutant",
+    name:"Зачистка",
+    desc:"Убей одного мутанта.",
+    rewardMoney:250,
+    rewardXp:100
+  },
+
+  {
+    id:"garbage",
+    name:"Старая Свалка",
+    desc:"Доберись до Свалки.",
+    rewardMoney:300,
+    rewardXp:120
+  },
+
+  {
+    id:"artifact",
+    name:"Артефакт",
+    desc:"Найди любой артефакт.",
+    rewardMoney:500,
+    rewardXp:200
+  }
+
+];
+
+
+/* =========================================================
+   SAVE DATA
+========================================================= */
+
+let defaultState = {
+
+  name:"Картавый",
+
+  level:1,
+
+  xp:0,
+
+  money:850,
+
+  hp:100,
+  maxHp:100,
+
+  stamina:100,
+  maxStamina:100,
+
+  radiation:5,
+
+  hunger:100,
+
+  location:"cordon",
+
+  strength:5,
+  accuracy:5,
+  staminaStat:5,
+  radResistance:2,
+
+  inventory:{
+    medkit:2,
+    food:3,
+    ammo:25,
+    bread:2
+  },
+
+  discovered:{
+    cordon:true,
+    garbage:false,
+    dark:false,
+    agro:false,
+    swamp:false,
+    yantar:false,
+    red:false,
+    pripyat:false
+  },
+
+  quests:{
+    first:false,
+    mutant:false,
+    garbage:false,
+    artifact:false
+  },
+
+  questProgress:{
+    first:0,
+    mutant:0,
+    garbage:0,
+    artifact:0
+  },
+
+  stats:{
+    kills:0,
+    searches:0,
+    artifacts:0,
+    traveled:0
+  },
+
+  journal:[
+    "Ты вошёл в Зону.",
+    "Начало нового похода."
+  ]
+
+};
+
+
+let state = loadGame();
+
+let currentEnemy = null;
+
+let defending = false;
+
+
+/* =========================================================
+   SAVE / LOAD
+========================================================= */
+
+function loadGame(){
+
+  try{
+
+    const saved = localStorage.getItem("hundred_rentgen_save");
+
+    if(saved){
+
+      const parsed = JSON.parse(saved);
+
+      return deepMerge(defaultState,parsed);
+
+    }
+
+  }catch(e){
+
+    console.log(e);
+
+  }
+
+  return JSON.parse(JSON.stringify(defaultState));
+
+}
+
+
+function deepMerge(base,extra){
+
+  const result=JSON.parse(JSON.stringify(base));
+
+  for(const key in extra){
+
+    if(
+      extra[key] &&
+      typeof extra[key]==="object" &&
+      !Array.isArray(extra[key]) &&
+      result[key]
+    ){
+
+      result[key]=deepMerge(result[key],extra[key]);
+
+    }else{
+
+      result[key]=extra[key];
+
+    }
+
+  }
+
+  return result;
+
+}
+
+
+function saveGame(){
+
+  localStorage.setItem(
+    "hundred_rentgen_save",
+    JSON.stringify(state)
+  );
+
+}
+
+
+/* =========================================================
+   UI
+========================================================= */
+
+function showPage(page,button){
+
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+  const target=document.getElementById(page);
+
+  if(target) target.classList.add("active");
+
+  document.querySelectorAll(".nav button,.mobile-nav button")
+    .forEach(b=>b.classList.remove("active"));
+
+  if(button) button.classList.add("active");
+
+  updateUI();
+
+}
+
+
+function toast(text){
+
+  const el=document.getElementById("toast");
+
+  el.textContent=text;
+
+  el.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer=setTimeout(
+    ()=>el.classList.remove("show"),
+    2600
+  );
+
+}
+
+
+function log(text){
+
+  state.journal.unshift(
+    "["+new Date().toLocaleTimeString("ru-RU")+"] "+text
+  );
+
+  if(state.journal.length>100)
+    state.journal.length=100;
+
+  updateJournal();
+
+  saveGame();
+
+}
+
+
+/* =========================================================
+   UPDATE
+========================================================= */
+
+function updateUI(){
+
+  const loc=locations[state.location];
+
+  document.getElementById("moneyTop").textContent=state.money;
+
+  document.getElementById("sideName").textContent=state.name;
+  document.getElementById("sideLevel").textContent=state.level;
+
+  document.getElementById("homeLocation").textContent=loc.name;
+  document.getElementById("homeDesc").textContent=loc.desc;
+
+  document.getElementById("mapCurrent").textContent=loc.name;
+
+  document.getElementById("mapDanger").textContent=
+    "Опасность: "+
+    dangerText(loc.danger);
+
+  document.getElementById("homeHp").textContent=
+    `${Math.max(0,state.hp)}/${state.maxHp}`;
+
+  document.getElementById("homeHpBar").style.width=
+    clamp(state.hp/state.maxHp*100,0,100)+"%";
+
+  document.getElementById("homeHunger").textContent=
+    state.hunger+"%";
+
+  document.getElementById("homeHungerBar").style.width=
+    clamp(state.hunger,0,100)+"%";
+
+  document.getElementById("homeRad").textContent=
+    state.radiation+"%";
+
+  document.getElementById("homeRadBar").style.width=
+    clamp(state.radiation,0,100)+"%";
+
+  document.getElementById("sideHp").style.width=
+    clamp(state.hp/state.maxHp*100,0,100)+"%";
+
+  document.getElementById("sideStam").style.width=
+    clamp(state.stamina/state.maxStamina*100,0,100)+"%";
+
+  document.getElementById("sideRad").style.width=
+    clamp(state.radiation,0,100)+"%";
+
+  updateInventory();
+
+  updateCharacter();
+
+  updateQuests();
+
+  updateShop();
+
+  updateMap();
+
+  updateJournal();
+
+  updateEvents();
+
+  document.getElementById("bagCount").textContent=
+    totalItems();
+
+  document.getElementById("bagWeight").textContent=
+    currentWeight().toFixed(1);
+
+}
+
+
+function clamp(n,min,max){
+
+  return Math.max(min,Math.min(max,n));
+
+}
+
+
+function dangerText(d){
+
+  if(d<=1)return"низкая";
+  if(d===2)return"средняя";
+  if(d===3)return"высокая";
+  if(d===4)return"очень высокая";
+
+  return"критическая";
+
+}
+
+
+/* =========================================================
+   INVENTORY
+========================================================= */
+
+function totalItems(){
+
+  return Object.values(state.inventory)
+    .reduce((a,b)=>a+b,0);
+
+}
+
+
+function currentWeight(){
+
+  let weight=0;
+
+  for(const id in state.inventory){
+
+    const item=items[id];
+
+    if(item)
+      weight+=item.weight*state.inventory[id];
+
+  }
+
+  return weight;
+
+}
+
+
+function updateInventory(){
+
+  const grid=document.getElementById("inventoryGrid");
+
+  grid.innerHTML="";
+
+  for(const id in state.inventory){
+
+    const count=state.inventory[id];
+
+    if(count<=0)continue;
+
+    const item=items[id];
+
+    if(!item)continue;
+
+    const div=document.createElement("div");
+
+    div.className="item";
+
+    div.onclick=()=>itemInfo(id);
+
+    div.innerHTML=`
+
+      <div class="item-icon">${item.icon}</div>
+
+      <div class="item-name">${item.name}</div>
+
+      <div class="item-count">x${count}</div>
+
+      <div class="item-weight">
+        ${(item.weight*count).toFixed(1)} кг
+      </div>
+
+    `;
+
+    grid.appendChild(div);
+
+  }
+
+  if(!grid.children.length){
+
+    grid.innerHTML=`
+      <div class="card">
+        Рюкзак пуст.
+      </div>
+    `;
+
+  }
+
+  const weight=currentWeight();
+
+  document.getElementById("invWeight").textContent=
+    weight.toFixed(1);
+
+  document.getElementById("weightBar").style.width=
+    clamp(weight/30*100,0,100)+"%";
+
+}
+
+
+function addItem(id,count=1){
+
+  if(!state.inventory[id])
+    state.inventory[id]=0;
+
+  state.inventory[id]+=count;
+
+  toast(
+    `${items[id].icon} Получено: ${items[id].name} ×${count}`
+  );
+
+  log(
+    `Получен предмет: ${items[id].name} ×${count}`
+  );
+
+  updateUI();
+
+}
+
+
+function removeItem(id,count=1){
+
+  if(!state.inventory[id] ||
+     state.inventory[id]<count)
+    return false;
+
+  state.inventory[id]-=count;
+
+  if(state.inventory[id]<=0)
+    delete state.inventory[id];
+
+  return true;
+
+}
+
+
+function itemInfo(id){
+
+  const item=items[id];
+
+  openModal(`
+    <h2>${item.icon} ${item.name}</h2>
+
+    <p class="muted">${item.desc}</p>
+
+    <div class="row space mt">
+      <span>Количество</span>
+      <b>${state.inventory[id]}</b>
+    </div>
+
+    <div class="row space mt">
+      <span>Вес</span>
+      <b>${item.weight} кг</b>
+    </div>
+
+    <div class="row space mt">
+      <span>Цена</span>
+      <b class="yellow">${item.price} ₽</b>
+    </div>
+
+    <div class="row mt">
+
+      ${
+        ["medical","food","rad","vodka"].includes(item.type)
+        ?
+        `<button class="btn" onclick="useItem('${id}');closeModal()">Использовать</button>`
+        :
+        ""
+      }
+
+      <button class="btn gold"
+        onclick="sellItem('${id}');closeModal()">
+        Продать
+      </button>
+
+      <button class="btn"
+        onclick="closeModal()">
+        Закрыть
+      </button>
+
+    </div>
+  `);
+
+}
+
+
+function useItem(id){
+
+  if(!state.inventory[id]){
+
+    toast("Такого предмета нет.");
+
+    return;
+
+  }
+
+  const item=items[id];
+
+  if(id==="medkit"){
+
+    if(state.hp>=state.maxHp){
+
+      toast("Здоровье уже максимальное.");
+
+      return;
+
+    }
+
+    removeItem(id);
+
+    state.hp=clamp(state.hp+35,0,state.maxHp);
+
+    log("Использована аптечка. +35 HP");
+
+    toast("❤️ +35 здоровья");
+
+  }
+
+  else if(id==="food"){
+
+    removeItem(id);
+
+    state.hunger=clamp(state.hunger+30,0,100);
+
+    log("Съедены консервы.");
+
+    toast("🍖 +30% сытости");
+
+  }
+
+  else if(id==="bread"){
+
+    removeItem(id);
+
+    state.hunger=clamp(state.hunger+18,0,100);
+
+    log("Съеден хлеб.");
+
+    toast("🍞 +18% сытости");
+
+  }
+
+  else if(id==="antirad"){
+
+    removeItem(id);
+
+    state.radiation=clamp(state.radiation-25,0,100);
+
+    log("Использован антирад.");
+
+    toast("☢ Радиация снижена");
+
+  }
+
+  else if(id==="vodka"){
+
+    removeItem(id);
+
+    state.radiation=clamp(state.radiation+3,0,100);
+
+    toast("🍾 Выпита водка.");
+
+    log("Выпита водка.");
+
+  }
+
+  else{
+
+    toast("Этот предмет нельзя использовать сейчас.");
+
+    return;
+
+  }
+
+  saveGame();
+
+  updateUI();
+
+}
+
+
+/* =========================================================
+   MAP / TRAVEL
+========================================================= */
+
+function updateMap(){
+
+  Object.keys(locations).forEach(id=>{
+
+    const node=document.getElementById("node-"+id);
+
+    if(!node)return;
+
+    node.classList.toggle(
+      "current",
+      state.location===id
+    );
+
+    node.classList.toggle(
+      "locked",
+      !state.discovered[id]
+    );
+
+  });
+
+}
+
+
+function travel(id){
+
+  const loc=locations[id];
+
+  if(!loc)return;
+
+  if(loc.locked && !state.discovered[id]){
+
+    toast("Эта территория пока неизвестна.");
+
+    log(`Попытка попасть в неизвестную локацию: ${loc.name}`);
+
+    return;
+
+  }
+
+  if(id===state.location){
+
+    toast("Ты уже находишься здесь.");
+
+    return;
+
+  }
+
+  const distance=loc.danger+1;
+
+  if(state.stamina<distance*8){
+
+    toast("Недостаточно выносливости.");
+
+    return;
+
+  }
+
+  state.stamina-=distance*8;
+
+  state.hunger=clamp(
+    state.hunger-distance*2,
+    0,
+    100
+  );
+
+  state.radiation=clamp(
+    state.radiation+loc.radiation/10,
+    0,
+    100
+  );
+
+  state.location=id;
+
+  state.discovered[id]=true;
+
+  state.stats.traveled++;
+
+  log(`Переход: ${loc.name}`);
+
+  toast(`🚶 Ты прибыл: ${loc.name}`);
+
+  if(Math.random()<0.25){
+
+    setTimeout(
+      ()=>startRandomCombat(),
+      300
+    );
+
+  }
+
+  checkQuests();
+
+  saveGame();
+
+  updateUI();
+
+}
+
+
+function travelNearest(){
+
+  const order=[
+    "cordon",
+    "garbage",
+    "dark",
+    "agro",
+    "red",
+    "pripyat"
+  ];
+
+  const currentIndex=order.indexOf(state.location);
+
+  let next=order[currentIndex+1];
+
+  if(!next) next="swamp";
+
+  if(locations[next].locked &&
+     !state.discovered[next]){
+
+    state.discovered[next]=true;
+
+  }
+
+  travel(next);
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchLocation(){
+
+  state.stats.searches++;
+
+  const loc=locations[state.location];
+
+  state.stamina=
+    clamp(state.stamina-4,0,state.maxStamina);
+
+  state.hunger=
+    clamp(state.hunger-1,0,100);
+
+  state.radiation=
+    clamp(
+      state.radiation+loc.radiation/30,
+      0,
+      100
+    );
+
+  const roll=Math.random();
+
+  if(roll<0.12){
+
+    addItem(
+      Math.random()<.5
+      ?"artifact1"
+      :"artifact2"
+    );
+
+    state.stats.artifacts++;
+
+    state.questProgress.artifact++;
+
+  }
+
+  else if(roll<0.38){
+
+    addItem("medkit");
+
+  }
+
+  else if(roll<0.55){
+
+    addItem("ammo",5+Math.floor(Math.random()*10));
+
+  }
+
+  else if(roll<0.75){
+
+    addItem(
+      Math.random()<.5
+      ?"scrap"
+      :"food"
+    );
+
+  }
+
+  else if(roll<0.9){
+
+    addItem("bread");
+
+  }
+
+  else{
+
+    toast("🔍 Ничего полезного не найдено.");
+
+    log("Поиск завершён без находки.");
+
+  }
+
+  if(Math.random()<loc.danger*.08){
+
+    setTimeout(
+      ()=>startRandomCombat(),
+      500
+    );
+
+  }
+
+  checkQuests();
+
+  saveGame();
+
+  updateUI();
+
+}
+
+
+/* =========================================================
+   COMBAT
+========================================================= */
+
+function startRandomCombat(){
+
+  const loc=locations[state.location];
+
+  let possible=enemies.filter(e=>{
+
+    if(loc.danger<=1)
+      return e.id==="dog" || e.id==="boar";
+
+    if(loc.danger===2)
+      return e.id!=="bloodsucker";
+
+    if(loc.danger===3)
+      return true;
+
+    return true;
+
+  });
+
+  const base=
+    possible[Math.floor(Math.random()*possible.length)];
+
+  currentEnemy={
+    ...base,
+    maxHp:base.hp,
+    hp:base.hp
+  };
+
+  defending=false;
+
+  document.getElementById("enemyIcon").textContent=
+    currentEnemy.icon;
+
+  document.getElementById("enemyName").textContent=
+    currentEnemy.name;
+
+  document.getElementById("enemyHp").textContent=
+    currentEnemy.hp;
+
+  document.getElementById("enemyMaxHp").textContent=
+    currentEnemy.maxHp;
+
+  document.getElementById("enemyHpBar").style.width="100%";
+
+  document.getElementById("combatLog").innerHTML="";
+
+  combatLog(
+    `⚠ На тебя напал ${currentEnemy.name}!`
+  );
+
+  showPage("combat",null);
+
+}
+
+
+function combatLog(text){
+
+  const logBox=document.getElementById("combatLog");
+
+  const line=document.createElement("div");
+
+  line.className="log-line";
+
+  line.textContent=text;
+
+  logBox.appendChild(line);
+
+  logBox.scrollTop=logBox.scrollHeight;
+
+}
+
+
+function attack(type){
+
+  if(!currentEnemy){
+
+    toast("Врага нет.");
+
+    return;
+
+  }
+
+  if(currentEnemy.hp<=0){
+
+    toast("Бой уже закончен.");
+
+    return;
+
+  }
+
+  let damage=0;
+
+  if(type==="gun"){
+
+    if(!state.inventory.ammo){
+
+      toast("Нет патронов.");
+
+      return;
+
+    }
+
+    removeItem("ammo");
+
+    damage=12+
+      state.accuracy+
+      Math.floor(Math.random()*10);
+
+    combatLog(
+      `🔫 Ты выстрелил и нанёс ${damage} урона.`
+    );
+
+  }
+
+  else{
+
+    damage=5+
+      state.strength+
+      Math.floor(Math.random()*7);
+
+    combatLog(
+      `🔪 Ты ударил ножом и нанёс ${damage} урона.`
+    );
+
+  }
+
+  currentEnemy.hp=
+    Math.max(0,currentEnemy.hp-damage);
+
+  updateEnemyUI();
+
+  if(currentEnemy.hp<=0){
+
+    winCombat();
+
+    return;
+
+  }
+
+  enemyAttack();
+
+  saveGame();
+
+  updateUI();
+
+}
+
+
+function defend(){
+
+  if(!currentEnemy)return;
+
+  defending=true;
+
+  combatLog(
+    "🛡 Ты приготовился блокировать следующую атаку."
+  );
+
+  enemyAttack();
+
+}
+
+
+function enemyAttack(){
+
+  if(!currentEnemy ||
+     currentEnemy.hp<=0)
+    return;
+
+  let damage=currentEnemy.damage+
+    Math.floor(Math.random()*5);
+
+  if(defending){
+
+    damage=Math.floor(damage*.35);
+
+    defending=false;
+
+    combatLog(
+      `🛡 Ты блокировал часть урона. Получено ${damage}.`
+    );
+
+  }else{
+
+    combatLog(
+      `💥 ${currentEnemy.name} атакует. Получено ${damage} урона.`
+    );
+
+  }
+
+  state.hp=
+    Math.max(0,state.hp-damage);
+
+  if(state.hp<=0){
+
+    loseCombat();
+
+  }
+
+  updateUI();
+
+}
+
+
+function updateEnemyUI(){
+
+  if(!currentEnemy)return;
+
+  document.getElementById("enemyHp").textContent=
+    currentEnemy.hp;
+
+  document.getElementById("enemyHpBar").style.width=
+    clamp(
+      currentEnemy.hp/currentEnemy.maxHp*100,
+      0,
+      100
+    )+"%";
+
+}
+
+
+function winCombat(){
+
+  combatLog(
+    `☠ ${currentEnemy.name} уничтожен.`
+  );
+
+  state.stats.kills++;
+
+  state.money+=currentEnemy.money;
+
+  gainXP(currentEnemy.xp);
+
+  state.questProgress.mutant++;
+
+  if(Math.random()<0.3){
+
+    addItem("scrap");
+
+  }
+
+  if(Math.random()<0.08){
+
+    addItem("artifact1");
+
+    state.stats.artifacts++;
+
+    state.questProgress.artifact++;
+
+  }
+
+  toast(
+    `Победа! +${currentEnemy.xp} XP • +${currentEnemy.money} ₽`
+  );
+
+  log(
+    `Убит ${currentEnemy.name}. Получено ${currentEnemy.xp} XP и ${currentEnemy.money} ₽.`
+  );
+
+  currentEnemy=null;
+
+  checkQuests();
+
+  saveGame();
+
+  updateUI();
+
+}
+
+
+function loseCombat(){
+
+  combatLog(
+    "☠ Ты потерял сознание..."
+  );
+
+  state.hp=Math.floor(state.maxHp*.35);
+
+  state.money=Math.floor(state.money*.9);
+
+  state.location="cordon";
+
+  state.radiation=clamp(
+    state.radiation+5,
+    0,
+    100
+  );
+
+  toast(
+    "Ты очнулся у сталкеров на Кордоне."
+  );
+
+  log(
+    "Потеря сознания. Возвращение на Кордон."
+  );
+
+  currentEnemy=null;
+
+  saveGame();
+
+  updateUI();
+
+}
+
+
+function flee(){
+
+  if(!currentEnemy)return;
+
+  if(Math.random()<.65){
+
+    combatLog("🏃 Тебе удалось уйти.");
+
+    log(
+      `Ты сбежал от ${currentEnemy.name}.`
+    );
+
+    currentEnemy=null;
+
+    toast("Удалось сбежать.");
+
+  }else{
+
+    combatLog("❌ Побег не удался!");
+
+    enemyAttack();
+
+  }
+
+  updateUI();
+
+}
+
+
+/* =========================================================
+   XP
+========================================================= */
+
+function gainXP(amount){
+
+  state.xp+=amount;
+
+  while(state.xp>=state.level*100){
+
+    state.xp-=state.level*100;
+
+    state.level++;
+
+    state.maxHp+=5;
+
+    state.hp=state.maxHp;
+
+    state.strength++;
+
+    state.accuracy++;
+
+    state.staminaStat++;
+
+    toast(
+      `⬆ НОВЫЙ УРОВЕНЬ: ${state.level}`
+    );
+
+    log(
+      `Получен новый уровень: ${state.level}.`
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   QUESTS
+========================================================= */
+
+function checkQuests(){
+
+  if(
+    !state.quests.first &&
+    state.stats.searches>=1
+  ){
+
+    completeQuest("first");
+
+  }
+
+  if(
+    !state.quests.mutant &&
+    state.questProgress.mutant>=1
+  ){
+
+    completeQuest("mutant");
+
+  }
+
+  if(
+    !state.quests.garbage &&
+    state.discovered.garbage
+  ){
+
+    completeQuest("garbage");
+
+  }
+
+  if(
+    !state.quests.artifact &&
+    state.questProgress.artifact>=1
+  ){
+
+    completeQuest("artifact");
+
+  }
+
+}
+
+
+function completeQuest(id){
+
+  const q=quests.find(x=>x.id===id);
+
+  if(!q)return;
+
+  state.quests[id]=true;
+
+  state.money+=q.rewardMoney;
+
+  gainXP(q.rewardXp);
+
+  toast(
+    `📜 Задание выполнено: ${q.name}`
+  );
+
+  log(
+    `Задание «${q.name}» выполнено. Награда: ${q.rewardMoney} ₽, ${q.rewardXp} XP.`
+  );
+
+  updateQuests();
+
+  saveGame();
+
+}
+
+
+function updateQuests(){
+
+  const box=document.getElementById("questList");
+
+  box.innerHTML="";
+
+  quests.forEach(q=>{
+
+    const done=state.quests[q.id];
+
+    const div=document.createElement("div");
+
+    div.className="quest"+(done?" done":"");
+
+    div.innerHTML=`
+
+      <div class="row space">
+
+        <h3>
+          ${done?"✓ ":""}${q.name}
+        </h3>
+
+        <span class="muted">
+          ${done?"ВЫПОЛНЕНО":"АКТИВНО"}
+        </span>
+
+      </div>
+
+      <div class="muted">
+        ${q.desc}
+      </div>
+
+      <div class="reward">
+        Награда: ${q.rewardMoney} ₽ • ${q.rewardXp} XP
+      </div>
+
+    `;
+
+    box.appendChild(div);
+
+  });
+
+}
+
+
+/* =========================================================
+   TRADER
+========================================================= */
+
+function updateShop(){
+
+  const box=document.getElementById("shopGrid");
+
+  if(!box)return;
+
+  box.innerHTML="";
+
+  const shop=[
+    "medkit",
+    "food",
+    "antirad",
+    "ammo",
+    "detector"
+  ];
+
+  shop.forEach(id=>{
+
+    const item=items[id];
+
+    const price=Math.floor(item.price*1.5);
+
+    const div=document.createElement("div");
+
+    div.className="card";
+
+    div.innerHTML=`
+
+      <div class="big">${item.icon}</div>
+
+      <div class="card-title">${item.name}</div>
+
+      <div class="muted">${item.desc}</div>
+
+      <div class="row space mt">
+
+        <b class="yellow">${price} ₽</b>
+
+        <button class="btn"
+          onclick="buyItem('${id}',${price})">
+          Купить
+        </button>
+
+      </div>
+
+    `;
+
+    box.appendChild(div);
+
+  });
+
+}
+
+
+function buyItem(id,price){
+
+  if(state.money<price){
+
+    toast("Недостаточно денег.");
+
+    return;
+
+  }
+
+  if(currentWeight()+items[id].weight>30){
+
+    toast("Рюкзак переполнен.");
+
+    return;
+
+  }
+
+  state.money-=price;
+
+  addItem(id);
+
+  log(
+    `Куплен предмет: ${items[id].name} за ${price} ₽.`
+  );
+
+  saveGame();
+
+  updateUI();
+
+}
+
+
+function sellItem(id){
+
+  if(!state.inventory[id]){
+
+    toast("Предмет отсутствует.");
+
+    return;
+
+  }
+
+  const price=Math.floor(items[id].price*.7);
+
+  removeItem(id);
+
+  state.money+=price;
+
+  toast(
+    `Продано за ${price} ₽`
+  );
+
+  log(
+    `Продан ${items[id].name} за ${price} ₽.`
+  );
+
+  saveGame();
+
+  updateUI();
+
+}
+
+
+/* =========================================================
+   CHARACTER
+========================================================= */
+
+function updateCharacter(){
+
+  document.getElementById("charName").textContent=
+    state.name;
+
+  document.getElementById("charLevel").textContent=
+    state.level;
+
+  document.getElementById("xpText").textContent=
+    `${state.xp} / ${state.level*100} XP`;
+
+  document.getElementById("xpBar").style.width=
+    clamp(
+      state.xp/(state.level*100)*100,
+      0,
+      100
+    )+"%";
+
+  document.getElementById("statStrength").textContent=
+    state.strength;
+
+  document.getElementById("statAccuracy").textContent=
+    state.accuracy;
+
+  document.getElementById("statStamina").textContent=
+    state.staminaStat;
+
+  document.getElementById("statRad").textContent=
+    state.radResistance;
+
+}
+
+
+/* =========================================================
+   JOURNAL / EVENTS
+========================================================= */
+
+function updateJournal(){
+
+  const box=document.getElementById("journalList");
+
+  if(!box)return;
+
+  box.innerHTML="";
+
+  state.journal
+    .slice(0,30)
+    .forEach(x=>{
+
+      const div=document.createElement("div");
+
+      div.className="log-line";
+
+      div.textContent=x;
+
+      box.appendChild(div);
+
+    });
+
+}
+
+
+function updateEvents(){
+
+  const box=document.getElementById("homeEvents");
+
+  if(!box)return;
+
+  box.innerHTML=
+
+    state.journal
+      .slice(0,5)
+      .map(x=>`<div class="log-line">${escapeHTML(x)}</div>`)
+      .join("");
+
+}
+
+
+function escapeHTML(str){
+
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;");
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openModal(html){
+
+  document.getElementById("modalContent").innerHTML=html;
+
+  document.getElementById("modal")
+    .classList.add("show");
+
+}
+
+
+function closeModal(){
+
+  document.getElementById("modal")
+    .classList.remove("show");
+
+}
+
+
+function openSettings(){
+
+  openModal(`
+
+    <h2>⚙ Настройки</h2>
+
+    <button class="btn full"
+      onclick="saveGame();toast('Игра сохранена');closeModal()">
+      💾 Сохранить игру
+    </button>
+
+    <button class="btn full mt"
+      onclick="resetGame()">
+      🗑 Сбросить прогресс
+    </button>
+
+    <button class="btn full mt"
+      onclick="closeModal()">
+      Закрыть
+    </button>
+
+  `);
+
+}
+
+
+function resetGame(){
+
+  if(!confirm(
+    "Удалить весь прогресс?"
+  ))return;
+
+  localStorage.removeItem(
+    "hundred_rentgen_save"
+  );
+
+  location.reload();
+
+}
+
+
+/* =========================================================
+   SURVIVAL LOOP
+========================================================= */
+
+setInterval(()=>{
+
+  if(state.location){
+
+    state.stamina=
+      clamp(
+        state.stamina+2,
+        0,
+        state.maxStamina
+      );
+
+    state.hunger=
+      clamp(
+        state.hunger-.5,
+        0,
+        100
+      );
+
+    const loc=locations[state.location];
+
+    if(loc){
+
+      state.radiation=
+        clamp(
+          state.radiation+loc.radiation/500,
+          0,
+          100
+        );
+
+    }
+
+    if(state.hunger<=10){
+
+      state.hp=
+        clamp(
+          state.hp-1,
+          0,
+          state.maxHp
+        );
+
+    }
+
+    if(state.radiation>=80){
+
+      state.hp=
+        clamp(
+          state.hp-.5,
+          0,
+          state.maxHp
+        );
+
+    }
+
+    saveGame();
+
+    updateUI();
+
+  }
+
+},10000);
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+updateUI();
+
+log("Система Зоны активирована.");
+
+</script>
+
+</body>
+</html>
